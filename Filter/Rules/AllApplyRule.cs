@@ -13,9 +13,9 @@
         }
 
         public override bool Matches(T obj)
-            => _rules.All(rule => rule.Matches(obj));
+            => _rules.All(rule => obj.Matches(rule));
 
-        public static Rule<T> Create(IEnumerable<Rule<T>> rules)
+        public static AllApplyRule<T> Create(IEnumerable<Rule<T>> rules)
             => new AllApplyRule<T>(rules);
     }
 }

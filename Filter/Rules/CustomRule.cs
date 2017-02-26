@@ -14,7 +14,7 @@
         public override bool Matches(T document) 
             => _func(document);
 
-        public static Rule<T> Create(Func<T, bool> func)
+        public static CustomRule<T> Create(Func<T, bool> func)
             => new CustomRule<T>(func);
     }
 }

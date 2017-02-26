@@ -40,10 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FilterExtensions.cs" />
     <Compile Include="Rules\AllApplyRule.cs" />
     <Compile Include="Rules\AnyApplyRule.cs" />
     <Compile Include="Rules\CustomRule.cs" />
-    <Compile Include="Filter.cs" />
     <Compile Include="Rules\NoneApplyRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\Rule.cs" />
