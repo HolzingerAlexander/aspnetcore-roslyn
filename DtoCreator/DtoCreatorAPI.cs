@@ -1,22 +1,46 @@
 ﻿namespace DtoCreator
 {
+    using System;
     using System.Collections.Generic;
-    using System.Security;
-    using Filter;
-    using Filter.Rules;
+    using System.Linq;
+
     using Microsoft.CodeAnalysis;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     partial class DtoCreator
     {
-        private readonly IEnumerable<Document> _documents;
-        private readonly Project _outProject;
-        private readonly string[] _outFolder;
+        // Data-Properties
+        private SyntaxTree Tree { get; }
 
-        public DtoCreator(Project project, Rule<IPropertySymbol> propertyFilter = null, Rule<Document> fileFilter = null)
+        private Func<PropertyDeclarationSyntax, bool> PropertyValid { get; set; }
+
+        public string CreateDto() => TransformText();
+
+        public string NamespaceName { get; private set; }
+
+        public string ClassName { get; private set; }
+
+        public DtoCreator(SyntaxTree tree,
+            Func<PropertyDeclarationSyntax, bool> propertyValid,
+            string namespaceName = "DTOs", string className = "Dto")
         {
-            _outProject = project;
-            _documents = fileFilter == null ? project.Documents : project.Documents.Filter(fileFilter);
-            _outFolder = new string[]{};
+            Tree = tree;
+            PropertyValid = propertyValid;
+            NamespaceName = namespaceName;
+            ClassName = className;
         }
+
+        // Helper-Properties
+        private CompilationUnitSyntax SyntaxRoot
+            => Tree.GetRoot() as CompilationUnitSyntax;
+
+        private IEnumerable<PropertyDeclarationSyntax> Properties
+            => SyntaxRoot.DescendantNodes().OfType<PropertyDeclarationSyntax>();
+
+        private IEnumerable<PropertyDeclarationSyntax> ValidProperties
+            => Properties.Where(PropertyValid);
+
+        private IEnumerable<UsingDirectiveSyntax> Usings
+            => SyntaxRoot.DescendantNodes().OfType<UsingDirectiveSyntax>();
     }
 }

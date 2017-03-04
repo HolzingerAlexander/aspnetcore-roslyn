@@ -29,6 +29,73 @@ namespace DtoCreator
         /// </summary>
         public virtual string TransformText()
         {
+            this.Write("\r\nnamespace ");
+            
+            #line 8 "C:\Users\alexa\documents\visual studio 2017\Projects\RoslynUtil\DtoCreator\DtoCreator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(NamespaceName));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n{\r\n");
+            
+            #line 10 "C:\Users\alexa\documents\visual studio 2017\Projects\RoslynUtil\DtoCreator\DtoCreator.tt"
+
+	foreach(var use in Usings)
+	{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t");
+            
+            #line 14 "C:\Users\alexa\documents\visual studio 2017\Projects\RoslynUtil\DtoCreator\DtoCreator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(use.ToString()));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 15 "C:\Users\alexa\documents\visual studio 2017\Projects\RoslynUtil\DtoCreator\DtoCreator.tt"
+
+	}
+
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\tpublic class ");
+            
+            #line 19 "C:\Users\alexa\documents\visual studio 2017\Projects\RoslynUtil\DtoCreator\DtoCreator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t{\r\n");
+            
+            #line 21 "C:\Users\alexa\documents\visual studio 2017\Projects\RoslynUtil\DtoCreator\DtoCreator.tt"
+
+			foreach(var prop in ValidProperties)
+			{
+
+            
+            #line default
+            #line hidden
+            this.Write("\t\t");
+            
+            #line 25 "C:\Users\alexa\documents\visual studio 2017\Projects\RoslynUtil\DtoCreator\DtoCreator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.ToString()));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 26 "C:\Users\alexa\documents\visual studio 2017\Projects\RoslynUtil\DtoCreator\DtoCreator.tt"
+
+			}
+
+            
+            #line default
+            #line hidden
+            this.Write("\t}\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }
